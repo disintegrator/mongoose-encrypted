@@ -1,4 +1,7 @@
+.DS_Store
 lib-cov
+coverage
+*.swp
 *.seed
 *.log
 *.csv
