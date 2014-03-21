@@ -1,5 +1,8 @@
-module.exports =
+lib =
     plugins:
         encryptedPlugin: require './plugins/encrypted'
-    types:
-        Encrypted: require './types/encrypted'
+    loadTypes: (mongoose) ->
+        require('./types/encrypted') mongoose
+        lib
+
+module.exports = lib
