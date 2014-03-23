@@ -1,6 +1,6 @@
 {
   "name": "mongoose-encrypted",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Mongoose plugin and schema type for working with encrypted data.",
   "main": "index.js",
   "scripts": {
