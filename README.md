@@ -7,7 +7,7 @@ mongoose-encrypted
 
 - `SchemaTypes.Encrypted` schema type that inherits from `SchemaTypes.String`. Fields of that type are automatically encrypted when they are changed.
 - `encryptedPlugin` schema plugin that adds a `checkEncrypted` method on model instances. This is used to check some input value against an encrypted field's value
-- Support for PBKDF2 encryption strategy. (bcrypt coming soon)
+- Support for PBKDF2 and bcrypt encryption strategy.
 
 ## Usage
 
@@ -63,11 +63,10 @@ mongoose-encrypted
         name: String
         password:
             type: Encrypted
-            method: 'pbkdf2'
+            method: 'bcrypt'
             encryptOptions:
-                iterations: 20000
-                keyLength: 32
-                saltLength: 32
+                saltRounds: 10
+                seedLength: 20
 
     # add plugin to schema so we can check encrypted fields with input data
     userSchema.plugin encryptedPlugin
