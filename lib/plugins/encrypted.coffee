@@ -4,9 +4,7 @@ module.exports = (schema) ->
     schema.methods.checkEncrypted = (fieldName, value, callback) ->
         fieldValue = @[fieldName]
         return callback?(null, false) if not fieldValue
-        fieldProperties = schema.path(fieldName)
-        encryptionMethod = fieldProperties?.options.method
+        encryptionMethod = (fieldValue.split('$$')[0] or '').split(':')[0]
         Strategy = strategies[encryptionMethod]
-        return callback?(null, false) if not Strategy
-        strategy = new Strategy fieldProperties?.options.encryptOptions
-        strategy.compare value, fieldValue, callback
+        return callback?('unrecognised encryption method') if not Strategy
+        Strategy.compare value, fieldValue, callback

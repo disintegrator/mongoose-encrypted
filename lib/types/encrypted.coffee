@@ -1,12 +1,12 @@
 mongoose = require 'mongoose'
-PBKDF2Strategy = require '../encryption/strategies/PBKDF2.coffee'
+strategies = require '../encryption/strategies'
+
 
 class Encrypted extends mongoose.SchemaTypes.String
     cast: (val) ->
         return '' if not val
-        Strategy = switch @options.method
-            when 'pbkdf2' then PBKDF2Strategy
-            else throw new Error 'Unrecognised encryption method'
+        Strategy = strategies[@options.method]
+        throw new Error('unrecognised encryption method') if not Strategy?
         strategy = new Strategy @options.encryptOptions
         strategy.encrypt val
 
