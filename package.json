@@ -16,9 +16,12 @@
     "url": "https://github.com/disintegrator/mongoose-encrypted/issues"
   },
   "homepage": "https://github.com/disintegrator/mongoose-encrypted",
-  "keywords": ["mongoose"],
+  "keywords": [
+    "mongoose"
+  ],
   "dependencies": {
     "coffee-script": "~1.7.1",
-    "mongoose": "^3.8.8"
+    "mongoose": "^3.8.8",
+    "bcrypt": "~0.7.7"
   }
 }
