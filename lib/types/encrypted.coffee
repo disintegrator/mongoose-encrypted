@@ -8,13 +8,14 @@ class Encrypted extends mongoose.SchemaTypes.String
         minLength: 8
     method: (strategyKey) ->
         defaults = @defaults
-        @set (val, self) ->
+        path = @path
+        @set (val, self, init) ->
             options = _.extend {}, defaults, self.options
             minLength = options.minLength
             val = if val then val?.trim() else val
             return '' unless !!val
             if val?.length < minLength
-                return @invalidate 'length', "Field must be at least #{minLength} characters."
+                return @invalidate path, "Field must be at least #{minLength} characters."
 
             Strategy = strategies[strategyKey]
             throw new Error('unrecognised encryption method') if not Strategy?
