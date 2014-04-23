@@ -1,14 +1,23 @@
+_ = require 'lodash'
 mongoose = require 'mongoose'
 strategies = require '../encryption/strategies'
 
 
 class Encrypted extends mongoose.SchemaTypes.String
+    defaults:
+        minLength: 8
     method: (strategyKey) ->
         @set (val, self) ->
-            return '' if not val
+            options = _.extend {}, @defaults, self.options.encryptOptions
+            minLength = options.minLength or 1
+            val = if val then val?.trim() else val
+            return '' unless !!val
+            if val?.length < minLength
+                return @invalidate 'length', "Field must be at least #{minLength} characters."
+
             Strategy = strategies[strategyKey]
             throw new Error('unrecognised encryption method') if not Strategy?
-            strategy = new Strategy self.options.encryptOptions
+            strategy = new Strategy options
             strategy.encrypt val
 
 module.exports = (mongoose) ->
