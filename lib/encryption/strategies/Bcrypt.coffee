@@ -1,6 +1,6 @@
 bcrypt = require 'bcrypt'
 _ = require 'lodash'
-EncryptionStrategy = require './base'
+EncryptionStrategy = require './Base'
 
 module.exports = class BcryptStrategy extends EncryptionStrategy
     @method: 'bcrypt'
@@ -13,4 +13,4 @@ module.exports = class BcryptStrategy extends EncryptionStrategy
 
     @compare: (input, encryptedValue, callback) ->
         hash = encryptedValue.split('$$').slice(1).join '$$'
-        bcrypt.compare input, hash, callback 
+        bcrypt.compare input, hash, callback

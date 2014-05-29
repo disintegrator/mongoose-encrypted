@@ -1,6 +1,6 @@
 crypto = require 'crypto'
 _ = require 'lodash'
-EncryptionStrategy = require './base'
+EncryptionStrategy = require './Base'
 
 module.exports = class PBKDF2Strategy extends EncryptionStrategy
     @method: 'pbkdf2'
